@@ -13,7 +13,7 @@ export default function LoginModal() {
 
   const onSubmit = () => {};
   const onClickClose = () => {
-    router.replace('/');
+    router.back();
   };
 
   const onChangeId = () => {};
