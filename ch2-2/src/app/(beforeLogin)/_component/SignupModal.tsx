@@ -1,44 +1,43 @@
 import style from "./signup.module.css";
 import BackButton from "./BackButton";
 import { redirect } from "next/navigation";
+import Form from "next/form";
 
 export default function SignupModal() {
-  const submit = async (formData: FormData) => {
-    "use server";
-    if (!formData.get("id")) {
-      return { message: "no_id" };
-    }
-    if (!formData.get("name")) {
-      return { message: "no_name" };
-    }
-    if (!formData.get("password")) {
-      return { message: "no_password" };
-    }
-    if (!formData.get("image")) {
-      return { message: "no_image" };
-    }
-    let shouldRedirect = false;
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/users`,
-        {
-          method: "post",
-          body: formData,
-          credentials: "include",
-        }
-      );
-      if (response.status === 403) {
-        return { message: "user_exists" };
-      }
 
-      shouldRedirect = true;
-    } catch (err) {
-      console.error(err);
-    }
-    if (shouldRedirect) {
-      redirect("/home"); // try/catch문 안에서 X
-    }
-  };
+  const submit = async (formData: FormData) => {
+     "use server";
+     if (!formData.get('id')) {
+       return { message: 'no_id' };
+     }
+     if (!formData.get('name')) {
+       return { message: 'no_name' };
+     }
+     if (!formData.get('password')) {
+       return { message: 'no_password' };
+     }
+     if (!formData.get('image')) {
+       return { message: 'no_image' };
+     }
+     let shouldRedirect = false;
+     try {
+       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+         method: 'post',
+         body: formData,
+         credentials: 'include',
+       })
+       if (response.status === 403) {
+         return { message: 'user_exists' }
+       }
+       shouldRedirect = true;
+     } catch (err) {
+       console.error(err);
+ 
+     }
+     if (shouldRedirect) {
+       redirect('/home'); // try/catch문 안에서 X
+     }
+   }
 
   return (
     <>
@@ -48,7 +47,8 @@ export default function SignupModal() {
             <BackButton />
             <div>계정을 생성하세요.</div>
           </div>
-          <form action={submit}>
+
+          <Form action={submit}>
             <div className={style.modalBody}>
               <div className={style.inputDiv}>
                 <label className={style.inputLabel} htmlFor="id">
@@ -87,7 +87,7 @@ export default function SignupModal() {
                 가입하기
               </button>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </>
