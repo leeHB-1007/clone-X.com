@@ -12,6 +12,7 @@ export default function LoginModal() {
   const router = useRouter();
 
   let hoe = 0;
+  let as = "s";
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setMessage("");
