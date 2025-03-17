@@ -11,6 +11,7 @@ export default function LoginModal() {
   const [message, setMessage] = useState("");
   const router = useRouter();
 
+  let hoe = 0;
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setMessage("");
